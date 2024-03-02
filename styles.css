@@ -13,10 +13,10 @@
     height: 700px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     justify-content: space-between;
 }
 
+.zeroth-row,
 .first-row,
 .second-row,
 .third-row,
@@ -24,11 +24,33 @@
 .screen {
     display: flex;
     flex-direction: row;
-    border-top: 4px black solid;
     border-bottom: 4px black solid;
     justify-content: space-evenly;
+    align-items: stretch;
     background-color:aquamarine;
+    flex-grow: 1;
+}
 
+.screen {
+    flex-grow: 1;
+    font-size: 65px;
+}
+
+.screen
+.zeroth-row > button,
+.first-row > button,
+.second-row > button,
+.third-row > button,
+.fourth-row > button {
+    flex-grow: 1;
+}
+
+.zeroth-row > .clear {
+    flex-grow: 3.45;
+}
+
+.fourth-row > .zero {
+    flex-grow: 2.25;
 }
 
 .screen {
