@@ -1,6 +1,9 @@
-let numberOne = 10
-let numberTwo = 10
-let operator = "*"
+let numberOne = 0;
+let numberTwo;
+let operator;
+let screenValue = document.querySelector(".screen");
+const numButtons = document.querySelectorAll(".numButton");
+const clearButton = document.querySelector(".clear");
 
 function add (a,b) {
 	return a + b
@@ -27,4 +30,18 @@ function operate(num1,num2,op) {
     }
 }
 
-console.log(operate(numberOne,numberTwo,operator))
+clearButton.addEventListener("click", () => {
+    screenValue.textContent = 0
+})
+
+numButtons.forEach(button => button.addEventListener("click", () => {
+    if (button.textContent === "0" && screenValue.textContent === "0") {
+        exit();
+    }
+    if (screenValue.textContent === "0"){
+        screenValue.textContent = ""
+    }
+    screenValue.textContent += button.textContent;
+}))
+
+//console.log(operate(numberOne,numberTwo,operator));
