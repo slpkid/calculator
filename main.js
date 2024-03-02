@@ -1,12 +1,13 @@
-let numberOne = 0;
+let numberOne;
 let numberTwo;
 let operator;
 let phase = 1;
-clearNum = false;
+let clearNum = false;
 let screenValue = document.querySelector(".screen");
 const numButtons = document.querySelectorAll(".numButton");
 const clearButton = document.querySelector(".clear");
 const opButtons = document.querySelectorAll(".opButton")
+const enterButton = document.querySelector(".equals")
 
 function add (a,b) {
 	return a + b
@@ -36,13 +37,13 @@ function operate(num1,num2,op) {
 clearButton.addEventListener("click", () => {
     phase = 1;
     screenValue.textContent = 0;
-    numberOne = 0;
+    numberOne = undefined;
     operator = undefined;
     numberTwo = undefined;
 })
 
 numButtons.forEach(button => button.addEventListener("click", () => {
-    if (phase === 2 && clearNum === true) {
+    if (clearNum === true) {
         screenValue.textContent = "";
         clearNum = false;
     }
@@ -56,18 +57,26 @@ numButtons.forEach(button => button.addEventListener("click", () => {
 }))
 
 opButtons.forEach(button => button.addEventListener("click", () => {
-    if (phase === 1) {
-        numberOne = screenValue.textContent;
+    if (numberOne === undefined) {
+        numberOne = Number(screenValue.textContent);
         operator = button.textContent;
-        phase = 2;
         clearNum = true;
         return;
     }
-    if (phase === 2) {
-        numberTwo = screenValue.textContent;
+    if (numberOne) {
+        numberTwo = Number(screenValue.textContent);
         screenValue.textContent = operate(numberOne,numberTwo,operator);
-        phase = 1;
+        numberOne = Number(screenValue.textContent);
+        clearNum = true;
+        return;
     }
 }))
+
+enterButton.addEventListener("click", () => {
+        numberTwo = Number(screenValue.textContent);
+        screenValue.textContent = operate(numberOne,numberTwo,operator);
+        clearNum = true;
+        return;
+})
 
 //console.log(operate(numberOne,numberTwo,operator));
