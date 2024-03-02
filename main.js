@@ -1,13 +1,13 @@
 let numberOne;
 let numberTwo;
 let operator;
-let phase = 1;
 let clearNum = false;
 let screenValue = document.querySelector(".screen");
 const numButtons = document.querySelectorAll(".numButton");
 const clearButton = document.querySelector(".clear");
 const opButtons = document.querySelectorAll(".opButton")
 const enterButton = document.querySelector(".equals")
+const decimalButton = document.querySelector(".decimal")
 
 function add (a,b) {
 	return a + b
@@ -56,6 +56,8 @@ numButtons.forEach(button => button.addEventListener("click", () => {
     screenValue.textContent += button.textContent;
 }))
 
+// Unintended behavior -- repeated operator presses yield exponential results.... may just have to create a flag for this.
+
 opButtons.forEach(button => button.addEventListener("click", () => {
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
@@ -76,7 +78,24 @@ enterButton.addEventListener("click", () => {
         numberTwo = Number(screenValue.textContent);
         screenValue.textContent = operate(numberOne,numberTwo,operator);
         clearNum = true;
+
         return;
+})
+
+decimalButton.addEventListener("click", () => {
+    let num = screenValue.textContent
+    //checking for a decimal in the onscreen value
+    processedNum = num.replace(/[^.]/gm,"");
+    if (processedNum && clearNum === true) {
+        screenValue.textContent = "0."
+        clearNum = false;
+        return;
+    } else if (processedNum && clearNum === false) {
+        return
+    } else {
+    screenValue.textContent += "."
+    return;
+    }
 })
 
 //console.log(operate(numberOne,numberTwo,operator));
