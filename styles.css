@@ -38,11 +38,3 @@
 .fourth-row {
     border-bottom: 0px black solid;
 }
-
-.first-row > div,
-.second-row > div,
-.third-row > div,
-.fourth-row > div {
-    border-left: 2px black solid;
-    border-right: 2px black solid;
-}
