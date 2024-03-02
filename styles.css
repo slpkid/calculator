@@ -21,7 +21,7 @@
 .second-row,
 .third-row,
 .fourth-row,
-.screen {
+.screen-row {
     display: flex;
     flex-direction: row;
     border-bottom: 4px black solid;
@@ -31,12 +31,15 @@
     flex-grow: 1;
 }
 
-.screen {
+.screen-row {
     flex-grow: 1;
     font-size: 65px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
-.screen
+.screen-row,
 .zeroth-row > button,
 .first-row > button,
 .second-row > button,
@@ -53,7 +56,7 @@
     flex-grow: 2.25;
 }
 
-.screen {
+.screen-row {
     border-top: 0px black solid;
 }
 
