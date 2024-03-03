@@ -69,9 +69,14 @@ function clearButtonPress() {
     operator = undefined;
     numberOne = undefined;
     numberTwo = undefined;
+    needNewNumber = false
 }
 
 function numberPress () {
+    // check if the calculator needs a new number to prevent exponential calculations...
+    if (needNewNumber = true) {
+        needNewNumber = false
+    }
     // will clear the display after pressing an operator or equals button for clarity
     if (clearNum === true) {
         screenValue.textContent = "";
@@ -139,11 +144,15 @@ function operatorPress() {
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
         operator = this.textContent;
+        needNewNumber = true;
         clearNum = true;
         return;
     }
+    if (needNewNumber === true) {
+        return
+    }
     // operate upon stored values and returns the result
-    if (numberOne) {
+    if (numberOne && needNewNumber === false) {
         numberTwo = Number(screenValue.textContent);
         //check if it's zero, end function if yes.
         if (numberTwo === 0 && operator === "/") {
