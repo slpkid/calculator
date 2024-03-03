@@ -2,6 +2,7 @@ let numberOne;
 let numberTwo;
 let operator;
 let clearNum = false;
+let needNewNumber = false;
 let screenValue = document.querySelector(".screen");
 const numButtons = document.querySelectorAll(".numButton");
 const clearButton = document.querySelector(".clear");
@@ -44,9 +45,14 @@ numButtons.forEach(button => button.addEventListener("click", numberPress))
 
 clearButton.addEventListener("click", clearButtonPress)
 
+let keyPressed;
+
+//listen for keypress
 document.addEventListener("keydown",(e) => {
     keyCode = e.code;
-    console.log(keyCode);
+    // console.log(keyCode);
+    // convert keypress to input
+    // if it matches with an operator, number, or equals, call the respective function.
 })
 
 function divideByZero() { 
@@ -90,13 +96,18 @@ function equalsPress() {
         return;
     }
     // otherwise it operates and stores numberTwo to allow for iterable calculations
-    numberTwo = Number(screenValue.textContent);
-    //check if it's zero, end function if yes.
+    if (!numberTwo) {
+        numberTwo = Number(screenValue.textContent);
+    }
+    // check if numberTwo is zero, end function if yes.
     if (numberTwo === 0 && operator === "/") {
         divideByZero();
         return;
     }
+    // 
     screenValue.textContent = operate(numberOne,numberTwo,operator).toString();
+    console.log(roundNum(operate(numberOne,numberTwo,operator).toString()))
+    numberOne = Number(screenValue.textContent);
     clearNum = true;
     return;
 }
