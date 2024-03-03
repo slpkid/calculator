@@ -80,9 +80,8 @@ opButtons.forEach(button => button.addEventListener("click", () => {
 }))
 
 enterButton.addEventListener("click", () => {
-    // this fires to store the first number to be operated on to prevent an empty calcuation
+    // when no operator is present, flag clearNum and do nothing.
     if (operator === undefined) {
-        numberOne = Number(screenValue.textContent);
         clearNum = true
         return;
     }
