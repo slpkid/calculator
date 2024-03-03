@@ -44,6 +44,11 @@ numButtons.forEach(button => button.addEventListener("click", numberPress))
 
 clearButton.addEventListener("click", clearButtonPress)
 
+document.addEventListener("keydown",(e) => {
+    keyCode = e.code;
+    console.log(keyCode);
+})
+
 function divideByZero() { 
     screenValue.textContent = "kappa"
     clearNum = true;
@@ -75,6 +80,7 @@ function numberPress () {
         screenValue.textContent = ""
     }
     screenValue.textContent += this.textContent;
+    return;
 }
 
 function equalsPress() {
@@ -96,7 +102,7 @@ function equalsPress() {
 }
 
 function roundNum(num) {
-    return Number(num.toString().slice(0,15))
+    return Number(num.toString().slice(0,13))
 }
 
 function decimalPress() {
