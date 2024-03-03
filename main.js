@@ -115,8 +115,7 @@ function equalsPress() {
         return;
     }
     // 
-    screenValue.textContent = operate(numberOne,numberTwo,operator).toString();
-    console.log(roundNum(operate(numberOne,numberTwo,operator).toString()))
+    screenValue.textContent = roundNum(operate(numberOne,numberTwo,operator));
     numberOne = Number(screenValue.textContent);
     clearNum = true;
     return;
@@ -164,7 +163,7 @@ function operatorPress() {
             divideByZero();
             return;
         }
-        screenValue.textContent = operate(numberOne,numberTwo,operator);
+        screenValue.textContent = roundNum(operate(numberOne,numberTwo,operator));
         numberOne = Number(screenValue.textContent);
         numberTwo = undefined;
         operator = this.textContent;
