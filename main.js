@@ -122,7 +122,10 @@ function equalsPress() {
 }
 
 function roundNum(num) {
-        return Number(num.toPrecision(13));
+    if (num > 9999999999999) {
+        return num.toExponential(2);
+    }
+    return Number(num.toPrecision(13));
 }
 
 function decimalPress() {
@@ -167,6 +170,7 @@ function operatorPress() {
         numberOne = Number(screenValue.textContent);
         numberTwo = undefined;
         operator = this.textContent;
+        needNewNumber = true;
         clearNum = true;
         return;
     }
