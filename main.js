@@ -1,6 +1,7 @@
 let numberOne;
 let numberTwo;
 let operator;
+let result;
 let clearNum = false;
 let needNewNumber = false;
 let screenValue = document.querySelector(".screen");
@@ -118,19 +119,20 @@ function equalsPress() {
         return;
     }
     // 
-    screenValue.textContent = roundNum(operate(numberOne,numberTwo,operator));
-    numberOne = Number(screenValue.textContent);
+    result = operate(numberOne,numberTwo,operator);
+    screenValue.textContent = roundNum(result);
+    numberOne = result;
     needNewNumber = true;
     clearNum = true;
     return;
 }
 
 function roundNum(num) {
-    if (num > 9999999999999 || num < -9999999999999) {
-        num = num.toExponential();
-        return num.slice(0,13);
+    if (num > 99999999999999 || num < -999999999999) {
+    num = Number(num.toString() + ".0");
+    return (num.toPrecision(9));
     }
-    return Number(num.toPrecision(13));
+    return num
 }
 
 function decimalPress() {
@@ -172,8 +174,9 @@ function operatorPress() {
             divideByZero();
             return;
         }
-        screenValue.textContent = roundNum(operate(numberOne,numberTwo,operator));
-        numberOne = Number(screenValue.textContent);
+        result = operate(numberOne,numberTwo,operator);
+        screenValue.textContent = roundNum(result);
+        numberOne = result;
         numberTwo = undefined;
         operator = this.textContent;
         needNewNumber = true;
