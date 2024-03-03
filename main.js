@@ -60,7 +60,7 @@ numButtons.forEach(button => button.addEventListener("click", () => {
 
 
 opButtons.forEach(button => button.addEventListener("click", () => {
-    // this fires to store the first number to be operated on to prevent an empty calcuations
+    // this fires to store the first number to be operated on to prevent an empty calcuation
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
         operator = button.textContent;
@@ -80,25 +80,34 @@ opButtons.forEach(button => button.addEventListener("click", () => {
 }))
 
 enterButton.addEventListener("click", () => {
-        numberTwo = Number(screenValue.textContent);
-        screenValue.textContent = operate(numberOne,numberTwo,operator);
-        clearNum = true;
+    // this fires to store the first number to be operated on to prevent an empty calcuation
+    if (operator === undefined) {
+        numberOne = Number(screenValue.textContent);
+        clearNum = true
         return;
+    }
+    // otherwise it operates and stores numberTwo to allow for iterable calculations
+    numberTwo = Number(screenValue.textContent);
+    screenValue.textContent = operate(numberOne,numberTwo,operator);
+    clearNum = true;
+    return;
 })
 
 decimalButton.addEventListener("click", () => {
     let num = screenValue.textContent
     processedNum = num.replace(/[^.]/gm,"");
     // Reduces onscreen text to a string containing nothing or a single decimal.
-    // 
+    // check if clearNum is true, then print "0." to the screen
     if (processedNum && clearNum === true) {
         screenValue.textContent = "0."
         clearNum = false;
         return;
+    // check for clearNum, and prevents multiple decimal presses if it's false
     } else if (processedNum && clearNum === false) {
         return
-    } else {
+    }
+    // if it passes both checks, then add a decimal.
     screenValue.textContent += "."
     return;
     }
-})
+)
