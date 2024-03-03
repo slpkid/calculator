@@ -122,7 +122,7 @@ function equalsPress() {
 }
 
 function roundNum(num) {
-    return Number(num.toString().slice(0,13))
+        return Number(num.toPrecision(13));
 }
 
 function decimalPress() {
