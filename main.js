@@ -90,6 +90,11 @@ function numberPress () {
     if (screenValue.textContent === "0"){
         screenValue.textContent = ""
     }
+    // prevent input from overflowing 
+    let num = screenValue.textContent.toString()
+    if(num.length > 12) {
+        return
+    }
     screenValue.textContent += this.textContent;
     return;
 }
