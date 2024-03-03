@@ -58,6 +58,13 @@ numButtons.forEach(button => button.addEventListener("click", () => {
     screenValue.textContent += button.textContent;
 }))
 
+function divideByZero() {    
+    screenValue.textContent = "kappa"
+    clearNum = true;
+    operator = undefined;
+    numberOne = undefined;
+    numberTwo = undefined;
+}
 
 opButtons.forEach(button => button.addEventListener("click", () => {
     // this fires to store the first number to be operated on to prevent an empty calcuation
@@ -70,6 +77,10 @@ opButtons.forEach(button => button.addEventListener("click", () => {
     // operate upon stored values and returns the result
     if (numberOne) {
         numberTwo = Number(screenValue.textContent);
+        if (numberTwo === 0 && operator === "/") {
+            divideByZero();
+            return;
+        }
         screenValue.textContent = operate(numberOne,numberTwo,operator);
         numberOne = Number(screenValue.textContent);
         numberTwo = undefined;
@@ -87,10 +98,23 @@ enterButton.addEventListener("click", () => {
     }
     // otherwise it operates and stores numberTwo to allow for iterable calculations
     numberTwo = Number(screenValue.textContent);
-    screenValue.textContent = operate(numberOne,numberTwo,operator);
+    if (numberTwo === 0 && operator === "/") {
+        divideByZero();
+        return;
+    }
+    let result = operate(numberOne,numberTwo,operator).toString();
+    if (result.length > 15) {
+        screenValue.textContent = roundNum(result)
+    } else {
+    screenValue.textContent = result
+    }
     clearNum = true;
     return;
 })
+
+function roundNum(num) {
+    return Number(num.toString().slice(0,15))
+}
 
 decimalButton.addEventListener("click", () => {
     let num = screenValue.textContent
