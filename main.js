@@ -16,25 +16,35 @@ function subtract (a,b) {
 	return a - b
 }
 function multiply (a,b) {
-	return a * b
+    return a * b
 }
 function divide (a,b) {
-	return a / b
+    return a / b
 }
 function operate(num1,num2,op) {
     switch(op) {
         case op = "+":
             return add(num1, num2)
-        case op = "-":
-            return subtract(num1,num2)
+            case op = "-":
+                return subtract(num1,num2)
         case op = "*":
             return multiply(num1,num2)
-        case op = "/":
-            return divide(num1,num2)
-    }
-}
+            case op = "/":
+                return divide(num1,num2)
+            }
+        }
+        
+enterButton.addEventListener("click", equalsPress)
 
-function divideByZero() {    
+decimalButton.addEventListener("click", decimalPress)
+
+opButtons.forEach(button => button.addEventListener("click", operatorPress))
+
+numButtons.forEach(button => button.addEventListener("click", numberPress))
+
+clearButton.addEventListener("click", clearButtonPress)
+
+function divideByZero() { 
     screenValue.textContent = "kappa"
     clearNum = true;
     operator = undefined;
@@ -57,14 +67,14 @@ function numberPress () {
         clearNum = false;
     }
     // keeps initialized 0 value as 0 when user inputs 0 to prevent user from inputting multiple zeroes in a row
-    if (button.textContent === "0" && screenValue.textContent === "0") {
+    if (this.textContent === "0" && screenValue.textContent === "0") {
         return
     }
     // clears the zero when other flags fail 
     if (screenValue.textContent === "0"){
         screenValue.textContent = ""
     }
-    screenValue.textContent += button.textContent;
+    screenValue.textContent += this.textContent;
 }
 
 function equalsPress() {
@@ -111,7 +121,7 @@ function operatorPress() {
     // this fires to store the first number to be operated on to prevent an empty calcuation
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
-        operator = button.textContent;
+        operator = this.textContent;
         clearNum = true;
         return;
     }
@@ -126,28 +136,8 @@ function operatorPress() {
         screenValue.textContent = operate(numberOne,numberTwo,operator);
         numberOne = Number(screenValue.textContent);
         numberTwo = undefined;
-        operator = button.textContent;
+        operator = this.textContent;
         clearNum = true;
         return;
     }
 }
-
-enterButton.addEventListener("click", () => {
-    equalsPress()
-})
-
-decimalButton.addEventListener("click", () => {
-    decimalPress()
-})
-
-opButtons.forEach(button => button.addEventListener("click", () => {
-    operatorPress()
-}))
-
-numButtons.forEach(button => button.addEventListener("click", () => {
-    numberPress()
-}))
-
-clearButton.addEventListener("click", () => {
-    clearButtonPress()
-})
