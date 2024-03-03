@@ -34,7 +34,7 @@ function operate(num1,num2,op) {
     }
 }
 
-//reinitializes all values. not sure if logic based on 
+//reinitializes all values. unsure if logic based on undefineds is poor quality code or not...
 clearButton.addEventListener("click", () => {
     screenValue.textContent = 0;
     operator = undefined;
@@ -60,14 +60,14 @@ numButtons.forEach(button => button.addEventListener("click", () => {
 
 
 opButtons.forEach(button => button.addEventListener("click", () => {
-    // when this fires after the 
+    // this fires to store the first number to be operated on to prevent an empty calcuations
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
         operator = button.textContent;
         clearNum = true;
         return;
     }
-    // Unintended behavior -- repeated operator presses yield exponential results.... may just have to create a flag for this.
+    // operate upon stored values and returns the result
     if (numberOne) {
         numberTwo = Number(screenValue.textContent);
         screenValue.textContent = operate(numberOne,numberTwo,operator);
@@ -102,5 +102,3 @@ decimalButton.addEventListener("click", () => {
     return;
     }
 })
-
-//console.log(operate(numberOne,numberTwo,operator));
