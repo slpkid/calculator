@@ -11,9 +11,6 @@ const opButtons = document.querySelectorAll(".opButton")
 const enterButton = document.querySelector(".equals")
 const decimalButton = document.querySelector(".decimal")
 
-// instead of using text.value... i can store the results in a variable and convert them.
-// that way the calculator doesn't lose accuracy between calculations
-
 function add (a,b) {
 	return a + b
 }
@@ -132,7 +129,7 @@ function roundNum(num) {
     num = Number(num.toString() + ".0");
     return (num.toPrecision(9));
     }
-    return num
+    return num;
 }
 
 function decimalPress() {
@@ -163,6 +160,7 @@ function operatorPress() {
         return;
     }
     if (needNewNumber === true) {
+        operator = this.textContent;
         return
     }
     numberTwo = undefined;
