@@ -34,19 +34,21 @@ function operate(num1,num2,op) {
     }
 }
 
+//reinitializes all values. not sure if logic based on 
 clearButton.addEventListener("click", () => {
-    phase = 1;
     screenValue.textContent = 0;
-    numberOne = undefined;
     operator = undefined;
+    numberOne = undefined;
     numberTwo = undefined;
 })
 
 numButtons.forEach(button => button.addEventListener("click", () => {
+    // will clear the display after pressing an operator or equals button for clarity
     if (clearNum === true) {
         screenValue.textContent = "";
         clearNum = false;
     }
+    // keeps initialized 0 value as 0 when user inputs 0 to prevent user from inputting multiple zeroes in a row
     if (button.textContent === "0" && screenValue.textContent === "0") {
         return
     }
@@ -56,19 +58,22 @@ numButtons.forEach(button => button.addEventListener("click", () => {
     screenValue.textContent += button.textContent;
 }))
 
-// Unintended behavior -- repeated operator presses yield exponential results.... may just have to create a flag for this.
 
 opButtons.forEach(button => button.addEventListener("click", () => {
+    // when this fires after the 
     if (numberOne === undefined) {
         numberOne = Number(screenValue.textContent);
         operator = button.textContent;
         clearNum = true;
         return;
     }
+    // Unintended behavior -- repeated operator presses yield exponential results.... may just have to create a flag for this.
     if (numberOne) {
         numberTwo = Number(screenValue.textContent);
         screenValue.textContent = operate(numberOne,numberTwo,operator);
         numberOne = Number(screenValue.textContent);
+        numberTwo = undefined;
+        operator = button.textContent;
         clearNum = true;
         return;
     }
@@ -78,14 +83,14 @@ enterButton.addEventListener("click", () => {
         numberTwo = Number(screenValue.textContent);
         screenValue.textContent = operate(numberOne,numberTwo,operator);
         clearNum = true;
-
         return;
 })
 
 decimalButton.addEventListener("click", () => {
     let num = screenValue.textContent
-    //checking for a decimal in the onscreen value
     processedNum = num.replace(/[^.]/gm,"");
+    // Reduces onscreen text to a string containing nothing or a single decimal.
+    // 
     if (processedNum && clearNum === true) {
         screenValue.textContent = "0."
         clearNum = false;
