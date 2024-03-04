@@ -146,8 +146,11 @@ function equalsPress() {
 
 function roundNum(num) {
     if (num > 99999999999999 || num < -999999999999) {
-    num = Number(num.toString() + ".0");
-    return (num.toPrecision(9));
+        num = Number(num.toString() + ".0");
+        return (num.toPrecision(9));
+    }
+    if (num.toString().length > 14) {
+        return (num.toPrecision(13));
     }
     return num;
 }
