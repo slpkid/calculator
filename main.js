@@ -4,12 +4,14 @@ let operator;
 let result;
 let clearNum = false;
 let needNewNumber = false;
+let canBackspace = true;
 let screenValue = document.querySelector(".screen");
 const numButtons = document.querySelectorAll(".numButton");
 const clearButton = document.querySelector(".clear");
 const opButtons = document.querySelectorAll(".opButton")
 const enterButton = document.querySelector(".equals")
 const decimalButton = document.querySelector(".decimal")
+const backspaceButton = document.querySelector(".backspace")
 
 function add (a,b) {
 	return a + b
@@ -35,6 +37,8 @@ function operate(num1,num2,op) {
                 return divide(num1,num2)
             }
         }
+
+backspaceButton.addEventListener("click",backSpacePress)
         
 enterButton.addEventListener("click", equalsPress)
 
@@ -56,6 +60,19 @@ document.addEventListener("keydown",(e) => {
     // if it matches with an operator, number, or equals, call the respective function.
 })
 
+function backSpacePress() {
+    if (canBackspace === false) {
+        return
+    } 
+    let screenString = screenValue.textContent;
+    let screenStringLength = screenString.length;
+    screenValue.textContent = screenString.slice(0, screenStringLength - 1);
+    if (screenValue.textContent === "") {
+        screenValue.textContent = "0"
+    }
+    return;
+}
+
 function divideByZero() { 
     screenValue.textContent = "kappa"
     clearNum = true;
@@ -70,7 +87,8 @@ function clearButtonPress() {
     operator = undefined;
     numberOne = undefined;
     numberTwo = undefined;
-    needNewNumber = false
+    needNewNumber = false;
+    canBackspace = true;
 }
 
 function numberPress () {
@@ -104,6 +122,7 @@ function equalsPress() {
     // when no operator is present, flag clearNum and do nothing.
     if (operator === undefined) {
         clearNum = true
+        canBackspace = false;
         return;
     }
     // otherwise it operates and stores numberTwo to allow for iterable calculations
@@ -120,6 +139,7 @@ function equalsPress() {
     screenValue.textContent = roundNum(result);
     numberOne = result;
     needNewNumber = true;
+    canBackspace = false;
     clearNum = true;
     return;
 }
@@ -156,6 +176,7 @@ function operatorPress() {
         numberOne = Number(screenValue.textContent);
         operator = this.textContent;
         needNewNumber = true;
+        canBackspace = true;
         clearNum = true;
         return;
     }
@@ -179,6 +200,7 @@ function operatorPress() {
         operator = this.textContent;
         needNewNumber = true;
         clearNum = true;
+        canBackspace = true;
         return;
     }
 }
